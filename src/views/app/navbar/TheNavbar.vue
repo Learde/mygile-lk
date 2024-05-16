@@ -1,11 +1,21 @@
 <script setup>
 import { defineModel } from "vue";
+import { useRouter } from "vue-router";
 import { VaNavbar, VaButton, VaSwitch, VaIcon } from "vuestic-ui";
+
 import { useColorTheme } from "@/utils";
+import { useUserStore } from "@/stores";
 
 const isSidebarMinimized = defineModel("isSidebarMinimized", { type: Boolean, default: false });
 
 const { setTheme, colorMode } = useColorTheme();
+const router = useRouter();
+const userStore = useUserStore();
+
+const logout = async function () {
+    await userStore.logout();
+    router.push({ name: 'login' });
+}
 </script>
 
 <template>
@@ -36,7 +46,7 @@ const { setTheme, colorMode } = useColorTheme();
                 <VaButton
                     preset="secondary"
                     icon="logout"
-                    @click="$router.push({ name: 'login' })"
+                    @click="logout"
                 />
             </div>
         </template>
