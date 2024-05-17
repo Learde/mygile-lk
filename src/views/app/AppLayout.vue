@@ -1,17 +1,16 @@
 <script setup>
-import { ref, watchEffect } from "vue";
+import { useLocalStorage } from "@vueuse/core";
 import { VaLayout, useBreakpoint } from "vuestic-ui";
 
-import TheNavbar from "./navbar/TheNavbar.vue";
-import TheSidebar from "./sidebar/TheSidebar.vue";
+import { TheNavbar, TheSidebar } from "@/components";
 
 const breakpoints = useBreakpoint();
 
-const isSidebarMinimized = ref(!breakpoints.mdUp);
+const isSidebarMinimized = useLocalStorage("isSidebarMinimized", breakpoints.smDown);
 
-watchEffect(() => {
-    isSidebarMinimized.value = !breakpoints.smUp;
-});
+const toggleSidebar = function () {
+    isSidebarMinimized.value = !isSidebarMinimized.value;
+};
 </script>
 
 <template>
@@ -26,7 +25,7 @@ watchEffect(() => {
         @left-overlay-click="isSidebarMinimized = false"
     >
         <template #top>
-            <TheNavbar v-model:is-sidebar-minimized="isSidebarMinimized" />
+            <TheNavbar :is-sidebar-minimized="isSidebarMinimized" @toggle-sidebar="toggleSidebar" />
         </template>
 
         <template #left>
@@ -42,3 +41,16 @@ watchEffect(() => {
         </template>
     </VaLayout>
 </template>
+
+<style scoped>
+main {
+    padding: var(--app-main-padding);
+}
+
+article {
+    padding: 20px;
+    border-radius: 5px;
+    background-color: var(--va-background-element);
+    min-height: calc(100vh - var(--app-navbar-height) - var(--app-main-padding) * 2);
+}
+</style>

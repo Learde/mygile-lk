@@ -6,7 +6,13 @@ import { VaNavbar, VaButton, VaSwitch, VaIcon } from "vuestic-ui";
 import { useColorTheme } from "@/utils";
 import { useUserStore } from "@/stores";
 
-const isSidebarMinimized = defineModel("isSidebarMinimized", { type: Boolean, default: false });
+defineProps({
+    isSidebarMinimized: {
+        type: Boolean,
+        default: false,
+    },
+})
+defineEmits(["toggleSidebar"]);
 
 const { setTheme, colorMode } = useColorTheme();
 const router = useRouter();
@@ -24,7 +30,7 @@ const logout = async function () {
             <VaButton
                 preset="secondary"
                 :icon="isSidebarMinimized ? 'menu_open' : 'menu'"
-                @click="isSidebarMinimized = !isSidebarMinimized"
+                @click="$emit('toggleSidebar')"
             />
         </template>
         <template #right>
@@ -55,7 +61,7 @@ const logout = async function () {
 
 <style scoped>
 .navbar {
-    height: 45px;
+    height: var(--app-navbar-height);
     padding: 0 12px;
 }
 

@@ -1,5 +1,12 @@
 <script setup>
-import { VaSidebar, VaSidebarItem, VaIcon, VaSidebarItemContent, VaSidebarItemTitle } from "vuestic-ui";
+import {
+    VaSidebar,
+    VaSidebarItem,
+    VaIcon,
+    VaSidebarItemContent,
+    VaSidebarItemTitle,
+    useBreakpoint,
+} from "vuestic-ui";
 
 import TheSidebarProfile from "./TheSidebarProfile.vue";
 
@@ -10,6 +17,8 @@ defineProps({
     },
 });
 
+const breakpoint = useBreakpoint();
+
 const menu = [
     { icon: "folder", title: "Проекты" },
     { icon: "push_pin", title: "Закрепленные" },
@@ -18,8 +27,14 @@ const menu = [
 </script>
 
 <template>
-    <VaSidebar :minimized="isSidebarMinimized" width="200px" minimized-width="45px" class="sidebar">
-        <TheSidebarProfile :is-minimized="isSidebarMinimized" />
+    <VaSidebar
+        :minimized="isSidebarMinimized && !breakpoint.smDown"
+        :model-value="isSidebarMinimized || !breakpoint.smDown"
+        width="200px"
+        minimized-width="45px"
+        class="sidebar"
+    >
+        <TheSidebarProfile :is-minimized="isSidebarMinimized && !breakpoint.smDown" />
         <VaSidebarItem v-for="{ icon, title } in menu" :key="icon">
             <VaSidebarItemContent class="sidebar-content">
                 <VaIcon :name="icon" size="small" />
