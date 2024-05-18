@@ -1,5 +1,4 @@
 <script setup>
-import { defineModel } from "vue";
 import { useRouter } from "vue-router";
 import { VaNavbar, VaButton, VaSwitch, VaIcon } from "vuestic-ui";
 

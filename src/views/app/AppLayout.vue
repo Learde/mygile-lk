@@ -34,9 +34,7 @@ const toggleSidebar = function () {
 
         <template #content>
             <main>
-                <article>
-                    <RouterView />
-                </article>
+                <RouterView />
             </main>
         </template>
     </VaLayout>
@@ -47,7 +45,7 @@ main {
     padding: var(--app-main-padding);
 }
 
-article {
+:deep(.app-box) {
     padding: 20px;
     border-radius: 5px;
     background-color: var(--va-background-element);

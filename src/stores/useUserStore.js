@@ -3,6 +3,10 @@ import { defineStore } from "pinia";
 
 import { registerUser, loginUser, logoutUser, initWorkspace } from "@/api";
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export const useUserStore = defineStore("user", () => {
     const user = ref(null);
     const isAuthenticated = ref(false);
@@ -20,7 +24,7 @@ export const useUserStore = defineStore("user", () => {
         if (first && second) {
             user.value.initials = `${first}.${second}.`;
         } else {
-            user.value.initials = first || second;
+            user.value.initials = capitalizeFirstLetter(user.value.fullName.slice(0, 2));
         }
     };
 
@@ -82,5 +86,6 @@ export const useUserStore = defineStore("user", () => {
         login,
         logout,
         init,
+        setUser,
     };
 });
