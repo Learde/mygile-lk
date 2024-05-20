@@ -16,7 +16,12 @@ const { user } = storeToRefs(userStore);
 </script>
 
 <template>
-    <VaSidebarItem class="sidebar-profile-item" v-if="user">
+    <VaSidebarItem
+        class="sidebar-profile-item sidebar-item"
+        v-if="user"
+        :to="{ name: 'profile' }"
+        active-class="sidebar-item-active"
+    >
         <VaSidebarItemContent class="sidebar-profile" :class="{ minimized: isMinimized }">
             <VaAvatar size="small" :color="user.avatarColor" :src="user.avatar">
                 <template v-if="!user.avatar">

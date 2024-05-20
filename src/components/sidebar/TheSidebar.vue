@@ -20,7 +20,7 @@ defineProps({
 const breakpoint = useBreakpoint();
 
 const menu = [
-    { icon: "folder", title: "Проекты" },
+    { icon: "apartment", title: "Компании", to: { name: "company" } },
     { icon: "push_pin", title: "Закрепленные" },
     { icon: "forum", title: "Диалоги" },
 ];
@@ -35,7 +35,13 @@ const menu = [
         class="sidebar"
     >
         <TheSidebarProfile :is-minimized="isSidebarMinimized && !breakpoint.smDown" />
-        <VaSidebarItem v-for="{ icon, title } in menu" :key="icon">
+        <VaSidebarItem
+            v-for="{ icon, title, to } in menu"
+            :key="icon"
+            active-class="sidebar-item-active"
+            class="sidebar-item"
+            :to="to ? to : undefined"
+        >
             <VaSidebarItemContent class="sidebar-content">
                 <VaIcon :name="icon" size="small" />
                 <VaSidebarItemTitle class="sidebar-title">
@@ -54,5 +60,13 @@ const menu = [
 
 .sidebar-title {
     font-size: 14px;
+}
+
+:deep(.sidebar-item-active) {
+    border-color: var(--va-primary);
+}
+
+:deep(.sidebar-item) {
+    border-right: 2px solid transparent;
 }
 </style>

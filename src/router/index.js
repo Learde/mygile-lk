@@ -16,6 +16,28 @@ const router = createRouter({
                     name: "profile",
                     component: () => import("../views/app/profile/ProfilePage.vue"),
                 },
+                {
+                    path: "company",
+                    name: "company",
+                    component: () => import("../views/app/company/CompaniesPage.vue"),
+                },
+                {
+                    path: "company/add",
+                    name: "company-add",
+                    component: () => import("../views/app/company/CompaniesFormPage.vue"),
+                },
+                {
+                    path: "company/edit/:id",
+                    name: "company-edit",
+                    props: true,
+                    component: () => import("../views/app/company/CompaniesFormPage.vue"),
+                },
+                {
+                    path: "company/:id",
+                    name: "company-view",
+                    props: true,
+                    component: () => import("../views/app/company/CompanyPage.vue"),
+                }
             ],
         },
         {

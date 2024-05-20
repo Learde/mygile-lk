@@ -1,14 +1,11 @@
 <script setup>
 import { reactive, ref } from "vue";
-import { useRouter } from "vue-router";
-import { VaForm, VaInput, VaValue, VaInnerLoading, useForm, useToast } from "vuestic-ui";
+import { VaForm, VaInput, VaValue, VaInnerLoading, useForm } from "vuestic-ui";
 
 import { validators } from "@/utils";
 import { useUserStore } from "@/stores";
 
 const { validate } = useForm("form");
-const router = useRouter();
-const toast = useToast();
 const userStore = useUserStore();
 
 const isLoading = ref(false);
@@ -30,9 +27,6 @@ const submit = async function () {
         isLoading.value = true;
 
         await userStore.register(formData);
-
-        toast.init({ message: "Вы успешно зарегистрировались", color: "success" });
-        router.push({ name: "home" });
     } catch (e) {
         error.value = e?.response?.data;
     } finally {

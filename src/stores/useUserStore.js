@@ -1,5 +1,7 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
+import { useRouter, useRoute } from "vue-router";
+import { useToast } from "vuestic-ui";
 
 import { registerUser, loginUser, logoutUser, initWorkspace } from "@/api";
 
@@ -8,6 +10,10 @@ function capitalizeFirstLetter(string) {
 }
 
 export const useUserStore = defineStore("user", () => {
+    const router = useRouter();
+    const route = useRoute();
+    const toast = useToast();
+    
     const user = ref(null);
     const isAuthenticated = ref(false);
     const isAuthorized = ref(false);
@@ -40,6 +46,10 @@ export const useUserStore = defineStore("user", () => {
             const workspace = await initWorkspace();
             setUser(workspace.user);
 
+            if (["login", "registration"].includes(route.name)) {
+                await router.push({ name: "home" });
+            }
+
             isAuthorized.value = true;
         } catch (e) {
             isAuthenticated.value = false;
@@ -57,6 +67,8 @@ export const useUserStore = defineStore("user", () => {
         localStorage.setItem("token", response.accessToken);
 
         await init();
+
+        toast.init({ message: "Вы успешно зарегистрировались", color: "success" });
     };
 
     const login = async function (formData) {
@@ -66,6 +78,8 @@ export const useUserStore = defineStore("user", () => {
         localStorage.setItem("token", response.accessToken);
 
         await init();
+
+        toast.init({ message: "Вы успешно авторизовались", color: "success" });
     };
 
     const logout = async function () {
