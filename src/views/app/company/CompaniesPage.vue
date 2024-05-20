@@ -35,7 +35,7 @@ const debounceFetchCompanies = debounce(() => {
                 >
                     <VaCardTitle class="companies-card-title">{{ company.title }}</VaCardTitle>
                     <VaCardContent class="companies-card-content">
-                        <span>Участников: 0</span>
+                        <span>Участников: {{ company.membersCount }}</span>
                         <span>Досок: 0</span>
                     </VaCardContent>
                 </VaCard>
