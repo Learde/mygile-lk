@@ -1,17 +1,33 @@
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { VaForm, VaInput, VaButton, VaIcon, VaInnerLoading, useForm } from "vuestic-ui";
 
 import { validators } from "@/utils";
 import { addCompany } from "@/api";
+import { useCompaniesStore } from "@/stores";
+
+const props = defineProps({
+    id: {
+        type: String,
+        required: false,
+    },
+});
 
 const { validate } = useForm("form");
 const router = useRouter();
+const companiesStore = useCompaniesStore();
 
 const isLoading = ref(false);
 const formData = reactive({
     title: "",
+});
+
+onMounted(async () => {
+    if (props.id) {
+        const company = await companiesStore.getCompany(props.id);
+        formData.title = company.title;
+    }
 });
 
 const submit = async function () {
@@ -22,7 +38,12 @@ const submit = async function () {
     try {
         isLoading.value = true;
 
-        await addCompany(formData);
+        if (props.id) {
+            await companiesStore.editCompany(props.id, formData);
+        } else {
+            await addCompany(formData);
+        }
+
         await router.push({ name: "company" });
     } finally {
         isLoading.value = false;
