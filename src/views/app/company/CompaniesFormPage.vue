@@ -55,7 +55,6 @@ const submit = async function () {
     <VaInnerLoading :loading="isLoading">
         <div class="app-box">
             <VaButton preset="plain" class="back-btn" :to="{ name: 'company' }">
-                <VaIcon name="arrow_back" />
                 Назад
             </VaButton>
             <h2 class="va-h5 companies-heading">Создание компании</h2>
@@ -69,7 +68,9 @@ const submit = async function () {
                         (v) => v.length >= 2 || `Название должно быть не менее 2 символов`,
                     ]"
                 />
-                <VaButton class="companies-form-btn" @click="submit">Сохранить</VaButton>
+                <VaButton class="companies-form-btn" preset="primary" @click="submit"
+                    >Сохранить</VaButton
+                >
             </VaForm>
         </div>
     </VaInnerLoading>

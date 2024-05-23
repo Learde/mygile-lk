@@ -19,7 +19,7 @@ const debounceFetchCompanies = debounce(() => {
     <div class="app-box">
         <h2 class="va-h5 companies-heading">Компании</h2>
         <div class="companies-header">
-            <VaButton :to="{ name: 'company-add' }">Создать</VaButton>
+            <VaButton preset="primary" :to="{ name: 'company-add' }">Создать</VaButton>
             <VaInput v-model="searchField" placeholder="Поиск" @input="debounceFetchCompanies">
                 <template #prependInner>
                     <VaIcon name="search" color="secondary" />

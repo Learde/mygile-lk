@@ -93,7 +93,9 @@ const removeAvatar = async function () {
                 <VaInput v-model="localUser.name" label="Имя" />
                 <VaInput v-model="localUser.surname" label="Фамилия" />
                 <VaInput v-model="localUser.email" label="Email" disabled />
-                <VaButton @click="save" class="profile-form-btn">Сохранить</VaButton>
+                <VaButton @click="save" class="profile-form-btn" preset="primary"
+                    >Сохранить</VaButton
+                >
             </VaForm>
         </div>
     </VaInnerLoading>

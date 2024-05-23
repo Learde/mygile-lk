@@ -81,7 +81,7 @@ const submit = async function () {
                 </VaValue>
 
                 <div class="registration-submit">
-                    <VaButton @click="submit"> Зарегистрироваться </VaButton>
+                    <VaButton @click="submit" preset="primary"> Зарегистрироваться </VaButton>
                 </div>
 
                 <div class="registration-error" v-if="error">

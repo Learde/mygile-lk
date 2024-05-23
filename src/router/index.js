@@ -37,7 +37,19 @@ const router = createRouter({
                     name: "company-view",
                     props: true,
                     component: () => import("../views/app/company/CompanyPage.vue"),
-                }
+                },
+                {
+                    path: "company/:companyId/board/add",
+                    name: "board-add",
+                    props: true,
+                    component: () => import("../views/app/board/BoardFormPage.vue"),
+                },
+                {
+                    path: "board/:id",
+                    name: "board-view",
+                    props: true,
+                    component: () => import("../views/app/board/BoardPage.vue"),
+                },
             ],
         },
         {

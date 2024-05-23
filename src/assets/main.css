@@ -1,4 +1,10 @@
 :root {
     --app-navbar-height: 45px;
     --app-main-padding: 10px;
+
+    --va-box-shadow: 0 0.1rem 0.3rem 0 var(--va-shadow) !important;
+}
+
+* {
+    box-sizing: border-box;
 }

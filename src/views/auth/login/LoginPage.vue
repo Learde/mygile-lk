@@ -26,7 +26,6 @@ const submit = async function () {
         isLoading.value = true;
 
         await userStore.login(formData);
-
     } catch (e) {
         error.value = e?.response?.data;
     } finally {
@@ -70,7 +69,7 @@ const submit = async function () {
                 </div>
 
                 <div class="login-submit">
-                    <VaButton @click="submit"> Войти </VaButton>
+                    <VaButton @click="submit" preset="primary"> Войти </VaButton>
                 </div>
 
                 <div class="login-error" v-if="error">

@@ -2,7 +2,7 @@
 import { useRouter } from "vue-router";
 import { onMounted, ref } from "vue";
 
-import { useCompaniesStore } from "@/stores";
+import { useCompaniesStore, useBoardsStore } from "@/stores";
 import { CompanyUsersTable } from "@/components";
 
 const props = defineProps({
@@ -14,15 +14,22 @@ const props = defineProps({
 
 const router = useRouter();
 const companiesStore = useCompaniesStore();
+const boardsStore = useBoardsStore();
 
 const company = ref(null);
+const boards = ref([]);
 
 const loadCompany = async function () {
     company.value = await companiesStore.getCompany(props.id);
-}
+};
+
+const loadBoards = async function () {
+    boards.value = await boardsStore.getBoards(props.id);
+};
 
 onMounted(() => {
     loadCompany();
+    loadBoards();
 });
 
 const deleteCompany = async function () {
@@ -39,6 +46,7 @@ const deleteCompany = async function () {
                 <h2 class="va-h5 company-heading">{{ company?.title }}</h2>
                 <VaButton
                     v-if="company?.userRole === 'ADMIN'"
+                    preset="primary"
                     :to="{ name: 'company-edit', params: { id: company?._id } }"
                 >
                     Редактировать
@@ -46,6 +54,7 @@ const deleteCompany = async function () {
                 <VaButton
                     v-if="company?.userRole === 'ADMIN'"
                     color="danger"
+                    preset="primary"
                     @click="deleteCompany"
                 >
                     Удалить
@@ -54,7 +63,28 @@ const deleteCompany = async function () {
         </div>
 
         <div class="app-box mb">
-            <h2 class="va-h5 company-heading">Доски</h2>
+            <div class="company-header">
+                <h2 class="va-h5 company-heading">Доски</h2>
+                <VaButton
+                    v-if="company?.userRole === 'ADMIN'"
+                    preset="primary"
+                    :to="{ name: 'board-add', params: { companyId: company?._id } }"
+                >
+                    Создать
+                </VaButton>
+            </div>
+            <div class="company-boards-list">
+                <VaCard
+                    v-for="board in boards"
+                    :key="board._id"
+                    :to="{ name: 'board-view', params: { id: board._id } }"
+                >
+                    <VaCardTitle>{{ board.title }}</VaCardTitle>
+                    <VaCardContent>
+                        <VaBadge :text="board.type" color="info" />
+                    </VaCardContent>
+                </VaCard>
+            </div>
         </div>
 
         <div class="app-box">
@@ -91,5 +121,23 @@ const deleteCompany = async function () {
 
 .company-heading {
     margin-right: auto;
+}
+
+.company-boards-list {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media (max-width: 768px) {
+    .company-boards-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .company-boards-list {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
