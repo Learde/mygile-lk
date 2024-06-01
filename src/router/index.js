@@ -45,6 +45,12 @@ const router = createRouter({
                     component: () => import("../views/app/board/BoardFormPage.vue"),
                 },
                 {
+                    path: "board/edit/:id",
+                    name: "board-edit",
+                    props: true,
+                    component: () => import("../views/app/board/BoardFormPage.vue"),
+                },
+                {
                     path: "board/:id",
                     name: "board-view",
                     props: true,
@@ -74,7 +80,6 @@ const router = createRouter({
 });
 
 const authRoutes = ["login", "registration", "auth"];
-
 router.beforeEach(async (to) => {
     const userStore = useUserStore();
 

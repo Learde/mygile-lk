@@ -63,7 +63,7 @@ const deleteCompany = async function () {
         </div>
 
         <div class="app-box mb">
-            <div class="company-header">
+            <div class="company-header mb">
                 <h2 class="va-h5 company-heading">Доски</h2>
                 <VaButton
                     v-if="company?.userRole === 'ADMIN'"
@@ -117,6 +117,10 @@ const deleteCompany = async function () {
     display: flex;
     gap: 10px;
     align-items: center;
+}
+
+.company-header.mb {
+    margin-bottom: 20px;
 }
 
 .company-heading {

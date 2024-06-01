@@ -3,6 +3,7 @@ import { ref, computed } from "vue";
 import { useToast } from "vuestic-ui";
 
 import { useCompanyRolesStore, useCompaniesStore, useUserStore } from "@/stores";
+import { mapMember } from "@/utils";
 
 const props = defineProps({
     members: {
@@ -26,28 +27,6 @@ const companiesStore = useCompaniesStore();
 const userStore = useUserStore();
 
 companyRolesStore.fetchRoles();
-
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-const mapMember = function (member) {
-    const user = { ...member.user };
-    user.fullName = `${member.user.name} ${member.user.surname}`;
-
-    if (!user.fullName.trim()) {
-        user.fullName = member.user.name || member.user.surname || member.user.email;
-    }
-
-    const [first, second] = user.fullName.split(" ").map((u) => u[0].toUpperCase());
-    if (first && second) {
-        user.initials = `${first}.${second}.`;
-    } else {
-        user.initials = capitalizeFirstLetter(user.fullName.slice(0, 2));
-    }
-
-    return { user, role: member.role };
-};
 
 const mappedMembers = computed(() => props.members.map(mapMember));
 
@@ -94,7 +73,7 @@ const updateRole = async function (index, role) {
     <div>
         <div class="company-add" v-if="role === 'ADMIN'">
             <VaInput placeholder="Введите email пользователя" v-model="email" />
-            <VaButton icon="add" @click="addUser" />
+            <VaButton icon="add" @click="addUser" preset="primary" />
         </div>
         <VaDataTable class="table" :columns="columns" :items="mappedMembers">
             <template #cell(user)="{ rowKey }">
@@ -132,6 +111,7 @@ const updateRole = async function (index, role) {
                     icon="delete"
                     style="margin-left: auto"
                     color="danger"
+                    preset="primary"
                     @click="deleteItemById(rowIndex)"
                 />
             </template>

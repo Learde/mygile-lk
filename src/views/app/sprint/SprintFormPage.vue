@@ -12,10 +12,10 @@ const props = defineProps({
         type: String,
         required: false,
     },
-    companyId: {
+    boardId: {
         type: String,
         required: true,
-    },
+    }
 });
 
 const router = useRouter();
@@ -25,22 +25,10 @@ const boardsStore = useBoardsStore();
 const isLoading = ref(false);
 const formData = reactive({
     title: "",
-    type: "kanban",
+    dateStart: "",
+    dateEnd: "",
+    tasks: [],
 });
-
-const loadBoard = async function () {
-    if (!props.id) {
-       return; 
-    }
-
-    const board = await boardsStore.getBoard(props.id);
-    formData.title = board.title;
-    formData.type = board.type;
-}
-
-onMounted(() => {
-    loadBoard();
-})
 
 const save = async function () {
     if (!validate()) {

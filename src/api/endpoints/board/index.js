@@ -1,3 +1,9 @@
 export { addBoard } from "./addBoard.js";
 export { getBoards } from "./getBoards.js";
 export { getBoard } from "./getBoard.js";
+export { addColumn } from "./addColumn.js";
+export { editColumn } from "./editColumn.js";
+export { deleteColumn } from "./deleteColumn.js";
+export { moveColumn } from "./moveColumn.js";
+export { editBoard } from "./editBoard.js";
+export { getBoardMembers } from "./getBoardMembers.js";

@@ -54,10 +54,11 @@ const submit = async function () {
 <template>
     <VaInnerLoading :loading="isLoading">
         <div class="app-box">
-            <VaButton preset="plain" class="back-btn" :to="{ name: 'company' }">
-                Назад
-            </VaButton>
-            <h2 class="va-h5 companies-heading">Создание компании</h2>
+            <VaButton preset="plain" class="back-btn" :to="{ name: 'company' }"> Назад </VaButton>
+            <h2 class="va-h5 companies-heading">
+                <template v-if="id">Редактирование компании</template>
+                <template v-else>Создание компании</template>
+            </h2>
             <VaForm ref="form" class="companies-form" @submit.prevent="submit">
                 <VaInput
                     class="companies-form-input"
