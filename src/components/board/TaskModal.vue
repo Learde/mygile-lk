@@ -104,10 +104,10 @@ const memberUsers = computed(() => {
 const updateCheckboxes = async function () {
     try {
         await editTask(task.value, props.taskId, props.columnId, props.boardId);
-    } catch(e) {
-        console.log(e)
+    } catch (e) {
+        console.log(e);
     }
-}
+};
 </script>
 
 <template>
@@ -241,10 +241,38 @@ const updateCheckboxes = async function () {
                 </div>
                 <VaDivider class="task-divider" />
 
-                <template v-if="task.media?.length || isEditting">
+                <template v-if="true || isEditting">
                     <div class="task-media">
                         <h4 class="va-h6">Медиа</h4>
-                        <div v-if="!isEditting" class="task-media-content"></div>
+                        <div v-if="!isEditting" class="task-media-content">
+                            <div style="display: flex; flex-direction: column; gap: 5px">
+                                <div
+                                    style="
+                                        width: 100%;
+                                        height: 80px;
+                                        background-image: url(&quot;https://cf2.ppt-online.org/files2/slide/s/sDq29pjUC8ITBoNEhZRiLfFXOdGMu4VSHa0zvc/slide-0.jpg&quot;);
+                                        background-size: contain;
+                                        background-position: center;
+                                        background-repeat: no-repeat;
+                                    "
+                                ></div>
+                                <div style="text-align: center">Слайд_1717355824039.jpg</div>
+                            </div>
+
+                            <div style="display: flex; flex-direction: column; gap: 5px">
+                                <div
+                                    style="
+                                        width: 100%;
+                                        height: 80px;
+                                        background-image: url(&quot;https://logo-base.com/logo/word_logo_icon.png&quot;);
+                                        background-size: contain;
+                                        background-position: center;
+                                        background-repeat: no-repeat;
+                                    "
+                                ></div>
+                                <div style="text-align: center">Требования_1717355824234.docx</div>
+                            </div>
+                        </div>
                         <TaskMediaEditor v-else v-model="task.media" />
                     </div>
                     <VaDivider class="task-divider" v-if="!isEditting" />
@@ -252,7 +280,10 @@ const updateCheckboxes = async function () {
 
                 <div class="task-chat" v-if="!isEditting">
                     <h4 class="va-h6">Чат</h4>
-                    <VaTextarea class="task-chat-input" placeholder="Введите сообщение..." />
+                    <div style="display: flex; gap: 10px; align-items: flex-start">
+                        <VaTextarea class="task-chat-input" placeholder="Введите сообщение..." style="margin-top: 0;" />
+                        <VaButton preset="primary" icon="send" size="large" />
+                    </div>
                     <div class="task-chat-content"></div>
                 </div>
             </div>
@@ -345,5 +376,11 @@ const updateCheckboxes = async function () {
 .task-other-edit {
     margin-top: 10px;
     display: block;
+}
+
+.task-media-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
 }
 </style>
